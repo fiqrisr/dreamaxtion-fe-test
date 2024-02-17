@@ -90,7 +90,10 @@ watch(
               <span class="font-normal"> ({{ dayjs(getReleaseDate()).year() }}) </span>
             </h1>
 
-            <AddToWatchListButton type="movie" :id="movieData.id" />
+            <AddToWatchListButton
+              :type="'runtime' in movieData ? 'movie' : 'tv-show'"
+              :movie-data="movieData"
+            />
           </div>
 
           <p>

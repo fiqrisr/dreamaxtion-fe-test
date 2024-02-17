@@ -20,6 +20,16 @@ const navItems = ref([
     key: 'tv-shows',
     path: '/tv-shows',
     label: 'TV Shows'
+  },
+  {
+    key: 'search',
+    path: '/search',
+    label: 'Search'
+  },
+  {
+    key: 'watchlist',
+    path: '/watchlist',
+    label: 'Watchlist'
   }
 ]);
 </script>
