@@ -18,9 +18,9 @@ const { data } = useGetDiscoverMoviesQuery();
   <AppHeader />
   <HeroImage
     v-if="currentRoutePath === '/'"
-    :image="`${TMDB_BASE_IMAGE_URL}/${HERO_IMAGE_SIZE}${data?.results[movieForHero].backdrop_path}`"
-    :title="data?.results[movieForHero].original_title ?? ''"
-    :description="data?.results[movieForHero].overview ?? ''"
+    :image="`${TMDB_BASE_IMAGE_URL}/${HERO_IMAGE_SIZE}${data?.pages[0].results[movieForHero].backdrop_path}`"
+    :title="data?.pages[0].results[movieForHero].original_title ?? ''"
+    :description="data?.pages[0].results[movieForHero].overview ?? ''"
   />
   <main class="relative py-8">
     <div class="container mx-auto max-w-screen-lg">

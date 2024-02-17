@@ -1,17 +1,30 @@
-import { useQuery, type UseQueryOptions } from '@tanstack/vue-query';
+import { useInfiniteQuery, type UseQueryOptions } from '@tanstack/vue-query';
 
 import { MovieService } from '@/services/movie-services';
 import type { PopularMovieListResponse } from '@/types';
 
 type UseGetDiscoverMoviesQueryProps = {
+  queryParams?: {
+    page?: number;
+  };
   options?: Omit<UseQueryOptions<PopularMovieListResponse>, 'queryKey'>;
 };
 
-export const useGetDiscoverMoviesQuery = ({ options }: UseGetDiscoverMoviesQueryProps = {}) => {
-  return useQuery({
+export const useGetDiscoverMoviesQuery = ({
+  queryParams,
+  options
+}: UseGetDiscoverMoviesQueryProps = {}) => {
+  return useInfiniteQuery({
     queryKey: ['discover-movies'],
-    queryFn: async () => {
-      return await MovieService.getDiscoverMovies();
+    queryFn: async ({ pageParam }) => {
+      return await MovieService.getDiscoverMovies({
+        page: pageParam
+      });
+    },
+    initialPageParam: queryParams?.page,
+    getNextPageParam: (lastPage) => {
+      const nextPageExist = lastPage.page < lastPage.total_pages;
+      return nextPageExist ? lastPage.page + 1 : undefined;
     },
     ...options
   });

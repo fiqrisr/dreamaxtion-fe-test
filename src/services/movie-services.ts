@@ -12,7 +12,13 @@ export const MovieService = {
       .then((res) => res.data);
   },
 
-  getDiscoverMovies: async () => {
-    return await httpClient.get<PopularMovieListResponse>('discover/movie').then((res) => res.data);
+  getDiscoverMovies: async ({ page = 1 }: BaseListQueryParams) => {
+    return await httpClient
+      .get<PopularMovieListResponse>('discover/movie', {
+        params: {
+          page
+        }
+      })
+      .then((res) => res.data);
   }
 };
