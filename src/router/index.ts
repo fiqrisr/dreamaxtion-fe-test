@@ -29,6 +29,16 @@ const router = createRouter({
       path: '/tv-shows/:id',
       name: 'tv-show-details',
       component: import('@/views/TVShowDetailsView.vue')
+    },
+    {
+      path: '/search/:query',
+      name: 'search',
+      component: import('@/views/SearchView.vue')
+    },
+    {
+      path: '/watchlist',
+      name: 'watchlist',
+      component: import('@/views/WatchList.vue')
     }
   ]
 });

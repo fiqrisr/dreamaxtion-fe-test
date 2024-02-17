@@ -31,5 +31,16 @@ export const MovieService = {
         }
       })
       .then((res) => res.data);
+  },
+
+  searchMovies: async ({ query, page = 1 }: BaseListQueryParams & { query: string }) => {
+    return await httpClient
+      .get<PopularMovieListResponse>('search/movie', {
+        params: {
+          query,
+          page
+        }
+      })
+      .then((res) => res.data);
   }
 };
