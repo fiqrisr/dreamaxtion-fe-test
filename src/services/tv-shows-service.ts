@@ -10,5 +10,15 @@ export const TVShowsService = {
         }
       })
       .then((res) => res.data);
+  },
+
+  getDiscoverTVShows: async ({ page = 1 }: BaseListQueryParams) => {
+    return await httpClient
+      .get<PopularTVShowsListResponse>('discover/tv', {
+        params: {
+          page
+        }
+      })
+      .then((res) => res.data);
   }
 };

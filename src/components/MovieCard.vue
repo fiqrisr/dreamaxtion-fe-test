@@ -16,7 +16,7 @@ defineProps<{
   </div>
   <div>
     <div class="flex gap-3 items-center text-sm mb-1">
-      <p>{{ releaseDate }}</p>
+      <p>{{ new Date(releaseDate).getFullYear() }}</p>
       <span>★ {{ vote }}</span>
     </div>
     <h3 class="font-semibold text-lg mb-1">{{ name }}</h3>

@@ -1,23 +1,23 @@
 import { useInfiniteQuery, type UseQueryOptions } from '@tanstack/vue-query';
 
-import { MovieService } from '@/services/movie-services';
-import type { PopularMovieListResponse } from '@/types';
+import { TVShowsService } from '@/services/tv-shows-service';
+import type { PopularTVShowsListResponse } from '@/types';
 
-type UseGetDiscoverMoviesQueryProps = {
+type UseGetDiscoverTVShowsQueryProps = {
   queryParams?: {
     page?: number;
   };
-  options?: Omit<UseQueryOptions<PopularMovieListResponse>, 'queryKey'>;
+  options?: Omit<UseQueryOptions<PopularTVShowsListResponse>, 'queryKey'>;
 };
 
-export const useGetDiscoverMoviesQuery = ({
+export const useGetDiscoverTVShowsQuery = ({
   queryParams,
   options
-}: UseGetDiscoverMoviesQueryProps = {}) => {
+}: UseGetDiscoverTVShowsQueryProps = {}) => {
   return useInfiniteQuery({
-    queryKey: ['discover-movies', queryParams],
+    queryKey: ['discover-tv', queryParams],
     queryFn: async ({ pageParam }) => {
-      return await MovieService.getDiscoverMovies({
+      return await TVShowsService.getDiscoverTVShows({
         page: pageParam
       });
     },
