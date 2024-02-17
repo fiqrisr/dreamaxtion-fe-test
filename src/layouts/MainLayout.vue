@@ -27,4 +27,6 @@ const { data } = useGetDiscoverMoviesQuery();
       <slot></slot>
     </div>
   </main>
+
+  <footer class="text-center py-10 border-t">Powered by The Movie Database (TMDB)</footer>
 </template>
