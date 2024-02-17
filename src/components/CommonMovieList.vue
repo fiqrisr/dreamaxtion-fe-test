@@ -6,6 +6,7 @@ import MovieCard from './MovieCard.vue';
 
 defineProps<{
   movieList: MovieListItem[] | TVShowsListItem[];
+  type: 'movies' | 'tv-shows';
 }>();
 
 function getTitle(item: MovieListItem | TVShowsListItem) {
@@ -21,7 +22,11 @@ function getReleaseDate(item: MovieListItem | TVShowsListItem) {
 
 <template>
   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 gap-y-8">
-    <RouterLink v-for="movie in movieList" :to="`/movies/${movie.id}`" :key="movie.id">
+    <RouterLink
+      v-for="movie in movieList"
+      :to="`/${type === 'movies' ? 'movies' : 'tv-shows'}/${movie.id}`"
+      :key="movie.id"
+    >
       <MovieCard
         :id="movie.id"
         :name="getTitle(movie)"

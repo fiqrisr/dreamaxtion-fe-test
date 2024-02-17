@@ -17,6 +17,7 @@ const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
         v-for="movieList in data?.pages"
         :key="movieList.page"
         :movie-list="movieList.results"
+        type="tv-shows"
       />
     </div>
     <div class="flex justify-center items-center mt-12 mb-4">
