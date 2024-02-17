@@ -1,5 +1,5 @@
 import { httpClient } from '@/http';
-import type { BaseListQueryParams, PopularMovieListResponse } from '@/types';
+import type { BaseListQueryParams, MovieDetailsResponse, PopularMovieListResponse } from '@/types';
 
 export const MovieService = {
   getPopularMovies: async ({ page = 1 }: BaseListQueryParams) => {
@@ -17,6 +17,17 @@ export const MovieService = {
       .get<PopularMovieListResponse>('discover/movie', {
         params: {
           page
+        }
+      })
+      .then((res) => res.data);
+  },
+
+  getMovieDetails: async ({ movieId }: { movieId: number | null }) => {
+    return await httpClient
+      .get<MovieDetailsResponse>(`movie/${movieId}`, {
+        params: {
+          append_to_response: 'credits',
+          language: 'en-US'
         }
       })
       .then((res) => res.data);

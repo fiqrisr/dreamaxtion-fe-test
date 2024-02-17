@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/vue-query';
 
-import { MovieService } from '@/services/movie-services';
+import { MovieService } from '@/services/movie-service';
 
 type UseGetPopularMoviesQueryProps = {
   queryParams?: {
