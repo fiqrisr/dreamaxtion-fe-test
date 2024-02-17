@@ -1,30 +1,29 @@
 <script setup lang="ts">
-import { watch } from 'vue';
+import { useInfiniteQuery } from '@tanstack/vue-query';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import CommonMovieList from '@/components/CommonMovieList.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import { useGetSearchMoviesQuery } from '@/queries/use-get-search-movies-query';
+import { MovieService } from '@/services/movie-service';
 
-const { params } = useRoute();
+const route = useRoute();
+const computedQuery = computed(() => route.params.query as string);
 
-const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetSearchMoviesQuery(
-  {
-    queryParams: {
-      query: params.query as string
-    },
-    options: {
-      enabled: !!params.query
-    }
+const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
+  queryKey: ['search-movies', computedQuery],
+  queryFn: async ({ pageParam }) => {
+    return await MovieService.searchMovies({
+      page: pageParam as number,
+      query: computedQuery.value || ''
+    });
+  },
+  initialPageParam: 1,
+  getNextPageParam: (lastPage) => {
+    const nextPageExist = lastPage.page < lastPage.total_pages;
+    return nextPageExist ? lastPage.page + 1 : undefined;
   }
-);
-
-watch(
-  () => params,
-  (newQuery, prevQuery) => {
-    console.log(newQuery);
-  }
-);
+});
 </script>
 
 <template>
@@ -33,11 +32,11 @@ watch(
   </div>
 
   <h1 v-if="data?.pages[0].results.length && !isLoading" class="font-bold text-2xl mb-6">
-    Showing results for "{{ params.query }}"
+    Showing results for "{{ route.params.query }}"
   </h1>
 
   <h1 v-else-if="data?.pages[0].total_results === 0 && !isLoading" class="font-bold text-2xl">
-    No results for "{{ params.query }}"
+    No results for "{{ route.params.query }}"
   </h1>
 
   <div class="flex flex-col gap-y-8">
