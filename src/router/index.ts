@@ -17,13 +17,18 @@ const router = createRouter({
     },
     {
       path: '/movies/:id',
-      name: 'movies-detail',
-      component: import('@/views/MovieDetailView.vue')
+      name: 'movies-details',
+      component: import('@/views/MovieDetailsView.vue')
     },
     {
       path: '/tv-shows',
       name: 'tv-shows',
       component: import('@/views/TVShowsView.vue')
+    },
+    {
+      path: '/tv-shows/:id',
+      name: 'tv-show-details',
+      component: import('@/views/TVShowDetailsView.vue')
     }
   ]
 });
